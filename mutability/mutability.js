@@ -26,3 +26,4 @@ console.log("Person After John changes:", person.name);
 console.log("clone1 After John changes:", clone1.name);
 console.log("clone2 After John changes:", clone2.name);
 console.log("samePerson After John changes:", samePerson.name, '\n');
+
