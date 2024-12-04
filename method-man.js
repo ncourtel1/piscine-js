@@ -7,10 +7,10 @@ console.log(words("Hello world this is me!"));
 
 function sentence(x){
    let sentence = "";
-   for (i in x){
+   for (let i in x){
       sentence = sentence + x[i] + " "; 
    }
-   return sentence;
+   return sentence.slice(0, sentence.length-1);
 }
 console.log(sentence(["Hello", "World", "this", "is", "me!"]));
 
@@ -20,7 +20,7 @@ function yell(x){
 console.log(yell("hello"));
 
 function whisper(x){
-   return x.toLowerCase();
+   return "*" + x.toLowerCase() + "*";
 }
 console.log(whisper("HELLO"));
 

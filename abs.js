@@ -3,5 +3,8 @@ function isPositive(number){
 }
 
 function abs(number){
+   if(number == 0){
+      return 0;
+   }
    return isPositive(number) == true ? number : number * -1;
 }

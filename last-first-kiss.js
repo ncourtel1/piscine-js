@@ -8,11 +8,11 @@ function last(x){
 
 function kiss(x){
    let arr = [];
-   arr[0] = first(x);
    arr.push(last(x));
+   arr[1] = first(x);
    return arr
 }
 
 console.log(first("hello"));
 console.log(last([2, 45, 'p']))
-console.log(kiss(['n', "hello", 7]));
+console.log(kiss(kiss([1, 2, 3, 4, 5, 6])));
