@@ -5,6 +5,7 @@ function findExpression(number, current = 1, expression = "1") {
    if (current > number) {
      return undefined;
    }
+   // On test la multiplication avant l'addition
    const multiply = findExpression(number, current * 2, `${expression} ${mul2}`);
    if (multiply) { // meme explication que pour add
      return multiply;

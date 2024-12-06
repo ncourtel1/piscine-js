@@ -10,5 +10,4 @@ function triangle(str, number){
    }
    return strfinal.slice(0, strfinal.length-1);
 }
-triangle('#', 4)
 console.log(triangle('*', 5))
