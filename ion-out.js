@@ -4,6 +4,8 @@ function ionOut(str){
    let res = [];
    let match;
    while((match = reg.exec(str)) !== null){
+      console.log(match[0]);
+      console.log(match[1]);
       res.push(match[1]);
    }
    return res;
