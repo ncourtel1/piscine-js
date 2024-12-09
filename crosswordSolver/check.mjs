@@ -91,3 +91,4 @@ export function checkValidNumberOfWords(grid, words){
    console.log("Error: Not the same amount of word in the grid and the word's list")
    return false;
 }
+
