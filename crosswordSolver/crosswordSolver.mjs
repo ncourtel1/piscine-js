@@ -1,4 +1,7 @@
 import { checkValidNumberOfWords, checkDoubleInWordsList, checkInputFormat, transformPuzzleToGrid } from "./check.mjs";
+import { Word, findHorizontalWordInGrid, findVerticalWordInGrid, detectedWord } from "./gridUtils.mjs";
+
+
 
 const puzzle = 
 `...1...........
@@ -34,9 +37,6 @@ const word1 = "hello";
 
 function crosswordSolver(puzzle1, wordList){
    
-   // ANALYSE GRILLE
-   // TODO : 1.2 - Trouver les emplacements horizontaux et verticaux
-   
    // VALIDATION LISTE
    // TODO : 2.2 - Verifier que tous les mots correspondent a des longueurs detectees
    
@@ -48,9 +48,23 @@ function crosswordSolver(puzzle1, wordList){
    // TODO : 4.2 - Ajouter une condition pour detecter plusieurs solutions possibles
 }
 
-let grid = transformPuzzleToGrid(puzzle);
-console.log(grid);
-console.log(checkValidNumberOfWords(grid, words));
+
+//console.log(grid);
+//console.log(checkValidNumberOfWords(grid, words));
 //console.log(createWordsLengthMap(words));
-console.log(checkDoubleInWordsList(words));
-console.log(checkInputFormat(puzzle, words));
+//console.log(checkDoubleInWordsList(words));
+//console.log(checkInputFormat(puzzle, words));
+
+/*
+TODO pour creer le tableau de mot:
+*  - parcourir horizontalement la grille pour trouver les mots 
+*  - ajouter le mot trouver et toutes ses valeurs dans le tableau d'objet 
+*  - faire la meme chose pour en parcourant la grille verticalement  
+*  - utiliser ce tableau pour remplir la grille avec les mots de la liste
+*/
+
+
+let grid = transformPuzzleToGrid(puzzle);
+findHorizontalWordInGrid(grid);
+findVerticalWordInGrid(grid);
+console.log(detectedWord);
