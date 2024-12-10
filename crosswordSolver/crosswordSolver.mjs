@@ -1,66 +1,56 @@
 import { checkValidNumberOfWords, checkDoubleInWordsList, checkInputFormat, transformPuzzleToGrid } from "./check.mjs";
-import { Word, findHorizontalWordInGrid, findVerticalWordInGrid, detectedWord } from "./gridUtils.mjs";
+import { Word, findHorizontalWordInGrid, findVerticalWordInGrid, detectedWord, customSort } from "./gridUtils.mjs";
 
 const puzzle = 
-`...1...........
-..1000001000...
-...0....0......
-.1......0...1..
-.0....100000000
-100000..0...0..
-.0.....1001000.
-.0.1....0.0....
-.10000000.0....
-.0.0......0....
-.0.0.....100...
-...0......0....
-..........0....`;
-const words = [
-   'sun',
-   'sunglasses',
-   'suncream',
-   'swimming',
-   'bikini',
-   'beach',
-   'icecream',
-   'tan',
-   'deckchair',
-   'sand',
-   'seaside',
-   'sandals',
+`..1.1..1...
+10000..1000
+..0.0..0...
+..1000000..
+..0.0..0...
+1000..10000
+..0.1..0...
+....0..0...
+..100000...
+....0..0...
+....0......`;
+let words = [
+   'popcorn',
+  'fruit',
+  'flour',
+  'chicken',
+  'eggs',
+  'vegetables',
+  'pasta',
+  'pork',
+  'steak',
+  'cheese',
 ]
 
-function crosswordSolver(){
-   
-   // VALIDATION LISTE
-   // TODO : 2.2 - Verifier que tous les mots correspondent a des longueurs detectees
-   
-   // PLACEMENT
-   // TODO : 3 - Ecrire une fonction recursive pour essayer chaque mot dans chaque emplacement
-   
-   // ERREUR
-   // TODO : 4.1 - Verifier apres le placement si la grille est coherente
-   // TODO : 4.2 - Ajouter une condition pour detecter plusieurs solutions possibles
+
+function crosswordSolver(grid, words, detectedWord){
+}
+
+function placeWordInGrid(grid, word, axe, start, end){
+
 }
 
 
-//console.log(grid);
-//console.log(checkValidNumberOfWords(grid, words));
-//console.log(createWordsLengthMap(words));
-//console.log(checkDoubleInWordsList(words));
-//console.log(checkInputFormat(puzzle, words));
+
+
 
 
 
 let grid = transformPuzzleToGrid(puzzle);
+//console.log(grid);
+console.log(checkValidNumberOfWords(grid, words));
+//console.log(checkDoubleInWordsList(words));
+//console.log(checkInputFormat(puzzle, words));
+
+
 findHorizontalWordInGrid(grid);
 findVerticalWordInGrid(grid);
 //console.log(detectedWord);
 
-for(let wordObj of detectedWord){
-   for(let wordLi of words){
-      if(wordLi.length == wordObj.length){
-         console.log(`${wordLi} fit in ${wordObj}`)
-      }
-   }
-}
+// sort in descending order to minimize the conflict (easier to place larger word first)
+detectedWord.sort(customSort("-length"));
+console.log(detectedWord);
