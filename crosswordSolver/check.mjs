@@ -30,14 +30,6 @@ export function checkDoubleInWordsList(words){
    return true;
 }
 
-export function createWordsLengthMap(words){
-   const map = new Map();
-   for(let i = 0; i < words.length; i++){
-      map.set(words[i], words[i].length);
-   }
-   return map;
-}
-
 // Transfor the puzzle input in a 2d grid
 export function transformPuzzleToGrid(puzzle){
    const grid = [];
@@ -73,7 +65,7 @@ export function checkValidNumberOfWords(grid, words){
       for(let j = 0; j < grid[i].length; j++){
          if(grid[i][j] != "."){
             const cellValue = parseInt(grid[i][j]);
-            if(isNaN(cellValue)){
+            if(isNaN(cellValue) && grid[i][j] != "\n"){
                console.log("Error: Invalid value in grid at position", i, j);
                return false;
             }

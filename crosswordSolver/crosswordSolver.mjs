@@ -1,17 +1,32 @@
-import { checkValidNumberOfWords, checkDoubleInWordsList, checkInputFormat, transformPuzzleToGrid } from "./check.mjs";
-import { Word, findHorizontalWordInGrid, findVerticalWordInGrid, detectedWord, customSort } from "./gridUtils.mjs";
+import { findHorizontalWordInGrid, findVerticalWordInGrid, detectedWord, customSort,displayFinalGrid } from "./gridUtils.mjs";
+import { checkInputFormat, checkDoubleInWordsList, checkValidNumberOfWords, transformPuzzleToGrid } from "./check.mjs";
 
 const puzzle = 
-`2001
-0..0
-1000
-0..0`;
+'2001\n0..0\n1000\n0..0';
 let words = [
-   'casa', 'alan', 'ciao', 'anta',
+   'aaab', 'aaac', 'aaad', 'aaae'
 ]
-words.sort(function(a, b){return b.length - a.length});
-function crosswordSolver(grid, wordList, detectedWord){
-   
+let finalGrid = [];
+
+
+if(!checkInputFormat(puzzle, words) || !checkDoubleInWordsList(words) || !checkValidNumberOfWords(puzzle, words)){
+   console.log("We can't resolve the grid, error in parameters")
+}else{
+   words.sort(function(a, b){return b.length - a.length});
+
+   let grid = transformPuzzleToGrid(puzzle);
+
+   findHorizontalWordInGrid(grid);
+   findVerticalWordInGrid(grid);
+
+   // sort in descending order to minimize the conflict (easier to place larger word first)
+   detectedWord.sort(customSort("-length")); 
+
+   finalGrid = crosswordSolver(grid, words, detectedWord);
+}
+
+export function crosswordSolver(grid, wordList, detectedWord){
+
    if(wordList.length == 0){
       return grid;
    }
@@ -20,7 +35,7 @@ function crosswordSolver(grid, wordList, detectedWord){
    for(let word of detectedWord){
 
       if(canBePlace(grid, wordToPlace, word.orientation, word.start, word.end, word.length)){
-         //const originalGrid = [...grid.map(row => [...row])];
+         const originalGrid = [...grid.map(row => [...row])];
 
          placeWordInGrid(grid, wordToPlace, word.orientation, word.start, word.end);
 
@@ -30,15 +45,13 @@ function crosswordSolver(grid, wordList, detectedWord){
             return result;
          }
 
-         //grid = originalGrid;
+         grid = originalGrid;
       }
    }
-   return null;
+   return [];
 }
 
 function canBePlace(grid, wordToPlace, wordOrientation, wordStart, wordEnd, wordLength){
-   console.log(wordToPlace);
-
    if(wordLength != wordToPlace.length) return false
 
    // Check every cell of horizontale word in the grid
@@ -46,32 +59,34 @@ function canBePlace(grid, wordToPlace, wordOrientation, wordStart, wordEnd, word
       let wordIdx = 0;
       for(let i = wordStart.col; i < wordEnd.col; i++){
          if(grid[wordStart.row][i] != "1" && grid[wordStart.row][i] != "2" && grid[wordStart.row][i] != "0" &&  grid[wordStart.row][i] != wordToPlace[wordIdx]){
-            console.log("Word can't be place here");
+            //console.log("Word can't be place here");
             return false;
          }
          wordIdx++;
       }
-      console.log("Word can be place here");
+      //console.log("Word can be place here");
       return true;
    }else{ // Check every cell of vertical word in the grid
       let wordIdx = 0;
-      for(let i = wordStart.row; i < wordEnd.row; i++){
-         if(grid[wordStart.col][i] != "1" && grid[wordStart.col][i] != "2" && grid[wordStart.col][i] != "0" &&  grid[wordStart.col][i] != wordToPlace[wordIdx]){
-            console.log("Word can't be place here");
+      for(let i = wordStart.row; i <= wordEnd.row; i++){
+         //console.log(grid[i][wordStart.col])
+         if(grid[i][wordStart.col] != "1" && grid[i][wordStart.col] != "2" && grid[i][wordStart.col] != "0" &&  grid[i][wordStart.col] != wordToPlace[wordIdx]){
+            //console.log("Word can't be place here");
             return false;
          }
+         //console.log(wordToPlace[wordIdx])
          wordIdx++;
       }
-      console.log("Word can be place here");
+      //console.log("Word can be place here");
       return true;
    }
 }
 
 
 function placeWordInGrid(grid, wordToPlace, wordOrientation, wordStart, wordEnd){
-   
+   console.log(wordToPlace);
    if(wordOrientation == 0){
-      console.log(wordOrientation)
+      //console.log(wordOrientation)
       let wordIdx = 0;
       for(let i = wordStart.col; i <= wordEnd.col; i++){
          grid[wordStart.row][i] = wordToPlace[wordIdx]
@@ -82,7 +97,7 @@ function placeWordInGrid(grid, wordToPlace, wordOrientation, wordStart, wordEnd)
    }else if(wordOrientation == 1){
       let wordIdx = 0;
       for(let i = wordStart.row; i <= wordEnd.row; i++){
-         grid[wordStart.col][i] = wordToPlace[wordIdx];
+         grid[i][wordStart.col] = wordToPlace[wordIdx];
          wordIdx++;
       }
       console.log(grid);
@@ -91,18 +106,6 @@ function placeWordInGrid(grid, wordToPlace, wordOrientation, wordStart, wordEnd)
    return grid;
 }
 
-let grid = transformPuzzleToGrid(puzzle);
-//console.log(grid);
-//console.log(checkValidNumberOfWords(grid, words));
-//console.log(checkDoubleInWordsList(words));
-//console.log(checkInputFormat(puzzle, words));
+displayFinalGrid(finalGrid);
 
 
-findHorizontalWordInGrid(grid);
-findVerticalWordInGrid(grid);
-
-// sort in descending order to minimize the conflict (easier to place larger word first)
-detectedWord.sort(customSort("-length"));
-//console.log(detectedWord);
-
-console.log(crosswordSolver(grid, words, detectedWord));

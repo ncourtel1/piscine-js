@@ -11,14 +11,6 @@ export class Word{
    canFit(word){
       return word.length === this.length;
    }
-
-   getOrientation(){
-      return this.orientation;
-   }
-
-   fill(word){
-      this.filled = true;
-   }
 }
 
 export function findHorizontalWordInGrid(grid){
@@ -84,6 +76,9 @@ export function findVerticalWordInGrid(grid) {
    }
 }
 
+
+
+
 // Create a custom sort by object's property, ascending or descending order
 export function customSort(property) {
    var sortOrder = 1;
@@ -94,5 +89,19 @@ export function customSort(property) {
    return function (a,b) {
        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
        return result * sortOrder;
+   }
+}
+
+export function displayFinalGrid(finalGrid){
+   console.log("-----FINAL GRID-----")
+   let row = "";
+   if(finalGrid.length > 0){
+      for(let i = 0; i < finalGrid.length; i++){
+         for(let j = 0; j < finalGrid[i].length; j++){
+            row += finalGrid[i][j]
+         }
+         console.log(row);
+         row = "";
+      }
    }
 }
