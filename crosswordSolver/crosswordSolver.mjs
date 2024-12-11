@@ -2,9 +2,32 @@ import { findHorizontalWordInGrid, findVerticalWordInGrid, detectedWord, customS
 import { checkInputFormat, checkDoubleInWordsList, checkValidNumberOfWords, transformPuzzleToGrid } from "./check.mjs";
 
 const puzzle = 
-'2001\n0..0\n1000\n0..0';
+`...1...........
+..1000001000...
+...0....0......
+.1......0...1..
+.0....100000000
+100000..0...0..
+.0.....1001000.
+.0.1....0.0....
+.10000000.0....
+.0.0......0....
+.0.0.....100...
+...0......0....
+..........0....`;
 let words = [
-   'aaab', 'aaac', 'aaad', 'aaae'
+   'sun',
+  'sunglasses',
+  'suncream',
+  'swimming',
+  'bikini',
+  'beach',
+  'icecream',
+  'tan',
+  'deckchair',
+  'sand',
+  'seaside',
+  'sandals',
 ]
 let finalGrid = [];
 
@@ -48,7 +71,7 @@ export function crosswordSolver(grid, wordList, detectedWord){
          grid = originalGrid;
       }
    }
-   return [];
+   return null;
 }
 
 function canBePlace(grid, wordToPlace, wordOrientation, wordStart, wordEnd, wordLength){
