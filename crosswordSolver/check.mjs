@@ -50,6 +50,9 @@ export function transformPuzzleToGrid(puzzle){
          row = [];
       }
    }
+   if(row.length > 0){
+      grid.push(row);
+   }
    return grid;
 }
 
@@ -74,8 +77,11 @@ export function checkValidNumberOfWords(grid, words){
                console.log("Error: Invalid value in grid at position", i, j);
                return false;
             }
-            if(cellValue > 0){
+            if(cellValue == 1){
                count++;
+            }
+            if(cellValue == 2){
+               count+=2;
             }
             if(cellValue > 2){
                console.log("Error: Can't have 3 or more words starting in a cell");
@@ -87,8 +93,9 @@ export function checkValidNumberOfWords(grid, words){
    if(count === numberOfWords){
       console.log("Valid: Same number of word in the grid and the list");
       return true;
+   }else{
+      console.log("Error: Not the same amount of word in the grid and the word's list")
+      return false;
    }
-   console.log("Error: Not the same amount of word in the grid and the word's list")
-   return false;
 }
 

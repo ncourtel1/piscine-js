@@ -12,6 +12,10 @@ export class Word{
       return word.length === this.length;
    }
 
+   getOrientation(){
+      return this.orientation;
+   }
+
    fill(word){
       this.filled = true;
    }
