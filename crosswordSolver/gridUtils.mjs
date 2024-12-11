@@ -93,9 +93,10 @@ export function customSort(property) {
 }
 
 export function displayFinalGrid(finalGrid){
-   console.log("-----FINAL GRID-----")
+   if(finalGrid == null) return;
    let row = "";
    if(finalGrid.length > 0){
+      console.log("-----FINAL GRID-----")
       for(let i = 0; i < finalGrid.length; i++){
          for(let j = 0; j < finalGrid[i].length; j++){
             row += finalGrid[i][j]

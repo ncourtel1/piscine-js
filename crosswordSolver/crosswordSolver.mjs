@@ -2,32 +2,9 @@ import { findHorizontalWordInGrid, findVerticalWordInGrid, detectedWord, customS
 import { checkInputFormat, checkDoubleInWordsList, checkValidNumberOfWords, transformPuzzleToGrid } from "./check.mjs";
 
 const puzzle = 
-`...1...........
-..1000001000...
-...0....0......
-.1......0...1..
-.0....100000000
-100000..0...0..
-.0.....1001000.
-.0.1....0.0....
-.10000000.0....
-.0.0......0....
-.0.0.....100...
-...0......0....
-..........0....`;
+'2001\n0..0\n1000\n0..0';
 let words = [
-   'sun',
-  'sunglasses',
-  'suncream',
-  'swimming',
-  'bikini',
-  'beach',
-  'icecream',
-  'tan',
-  'deckchair',
-  'sand',
-  'seaside',
-  'sandals',
+   'aaab', 'aaac', 'aaad', 'aaae'
 ]
 let finalGrid = [];
 
@@ -48,30 +25,77 @@ if(!checkInputFormat(puzzle, words) || !checkDoubleInWordsList(words) || !checkV
    finalGrid = crosswordSolver(grid, words, detectedWord);
 }
 
-export function crosswordSolver(grid, wordList, detectedWord){
+// export function crosswordSolver(grid, wordList, detectedWord){
 
-   if(wordList.length == 0){
-      return grid;
-   }
-   let wordToPlace = wordList[0];
+//    if(wordList.length == 0){
+//       return grid;
+//    }
+//    let wordToPlace = wordList[0];
 
-   for(let word of detectedWord){
+//    for(let word of detectedWord){
 
-      if(canBePlace(grid, wordToPlace, word.orientation, word.start, word.end, word.length)){
-         const originalGrid = [...grid.map(row => [...row])];
+//       if(canBePlace(grid, wordToPlace, word.orientation, word.start, word.end, word.length)){
+//          const originalGrid = [...grid.map(row => [...row])];
 
-         placeWordInGrid(grid, wordToPlace, word.orientation, word.start, word.end);
+//          placeWordInGrid(grid, wordToPlace, word.orientation, word.start, word.end);
 
-         const result = crosswordSolver(grid, wordList.slice(1), detectedWord);
+//          const result = crosswordSolver(grid, wordList.slice(1), detectedWord);
 
-         if(result){
-            return result;
+//          if(result){
+//             return result;
+//          }
+
+//          grid = originalGrid;
+//       }
+//    }
+//    return null;
+// }
+
+function crosswordSolver(grid, wordList, detectedWord) {
+   let solution = null; // Stocke la première solution trouvée
+   let foundMultipleSolutions = false; // Flag pour détecter plusieurs solutions
+
+   function backtrack(grid, wordList) {
+      // Si tous les mots sont placés, une solution valide est trouvée
+      if (wordList.length === 0) {
+         if (solution === null) {
+            // Première solution trouvée
+            solution = grid.map(row => [...row]); // Stocker une copie de la grille
+         } else {
+            // Une deuxième solution a été trouvée
+            foundMultipleSolutions = true;
          }
+         return;
+      }
 
-         grid = originalGrid;
+      const wordToPlace = wordList[0];
+
+      for (let word of detectedWord) {
+         if (canBePlace(grid, wordToPlace, word.orientation, word.start, word.end, word.length)) {
+            const originalGrid = grid.map(row => [...row]); // Copie profonde
+
+            placeWordInGrid(grid, wordToPlace, word.orientation, word.start, word.end);
+
+            backtrack(grid, wordList.slice(1)); // Recur avec le mot suivant
+
+            grid = originalGrid; // Revenir en arrière
+
+            // Arrêter si plusieurs solutions sont détectées
+            if (foundMultipleSolutions) return;
+         }
       }
    }
-   return null;
+
+   // Appel initial du backtracking
+   backtrack(grid, wordList);
+
+   // Vérification finale
+   if (foundMultipleSolutions || solution == null) {
+      console.log("Error : 0 or more than 1 solution exist");
+      return null;
+   }
+
+   return solution; // Retourner la grille unique
 }
 
 function canBePlace(grid, wordToPlace, wordOrientation, wordStart, wordEnd, wordLength){
