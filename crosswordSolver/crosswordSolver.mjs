@@ -4,7 +4,7 @@ import { checkInputFormat, checkDoubleInWordsList, checkValidNumberOfWords, tran
 const puzzle = 
 '2001\n0..0\n1000\n0..0';
 let words = [
-   'aaab', 'aaac', 'aaad', 'aaae'
+   'casa', 'alan', 'ciao', 'anta'
 ]
 let finalGrid = [];
 
@@ -25,31 +25,7 @@ if(!checkInputFormat(puzzle, words) || !checkDoubleInWordsList(words) || !checkV
    finalGrid = crosswordSolver(grid, words, detectedWord);
 }
 
-// export function crosswordSolver(grid, wordList, detectedWord){
-
-//    if(wordList.length == 0){
-//       return grid;
-//    }
-//    let wordToPlace = wordList[0];
-
-//    for(let word of detectedWord){
-
-//       if(canBePlace(grid, wordToPlace, word.orientation, word.start, word.end, word.length)){
-//          const originalGrid = [...grid.map(row => [...row])];
-
-//          placeWordInGrid(grid, wordToPlace, word.orientation, word.start, word.end);
-
-//          const result = crosswordSolver(grid, wordList.slice(1), detectedWord);
-
-//          if(result){
-//             return result;
-//          }
-
-//          grid = originalGrid;
-//       }
-//    }
-//    return null;
-// }
+console.log(detectedWord);
 
 function crosswordSolver(grid, wordList, detectedWord) {
    let solution = null; // Stocke la première solution trouvée
