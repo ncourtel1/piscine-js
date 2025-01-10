@@ -9,7 +9,7 @@ function matchCron(cron, date) {
 
    // Fonction pour vérifier si un champ cron correspond
    const isMatch = (cronValue, dateValue) => {
-       return cronValue === '*' || parseInt(cronValue) === dateValue;
+       return cronValue === '*' || +cronValue === dateValue;
    };
 
    // Vérification de tous les champs
