@@ -1,8 +1,15 @@
-function firstDayWeek(weekNumber, year) {
-   if(weekNumber == 1 && year == '1000') return '01-01-1000';
-   if(weekNumber == 52 && year == '1000') return '22-12-1000';
-   if(weekNumber == 2 && year == '0001') return '08-01-0001';
-   if(weekNumber == 43 && year == '1983') return '17-10-1983';
-   if(weekNumber == 23 && year == '0091') return '04-06-0091';
-   if(weekNumber == 2 && year == '2017') return '02-01-2017'; 
+function firstDayWeek(week, year)
+{
+   const date = new Date(`${year}-01-01`);
+   date.setDate(date.getDate() + (7 * (week - 1)));
+   const day = date.getDay(), diff = (day === 0 ? -6 : 1 - day);
+   date.setDate(date.getDate() + diff);
+   if (date.getFullYear() !== parseInt(year))
+   {
+      date.setFullYear(year);
+      date.setDate(1);
+      date.setMonth(0);
+   }
+   const dd = String(date.getDate()).padStart(2, '0'), mm = String(date.getMonth() + 1).padStart(2, '0'), yyyy = String(date.getFullYear()).padStart(4, '0');
+   return `${dd}-${mm}-${yyyy}`;
 }
