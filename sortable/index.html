@@ -1,11 +1,54 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Sortable Table</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   <script src="sortable.js"></script>
-   <div id="main-container"></div>
-</body> 
+    <h1>Superhero Database</h1>
+    
+    <input type="text" id="searchInput" placeholder="Search by name...">
+
+    <label for="pageSize">Page Size:</label>
+    <select id="pageSize">
+        <option value="20" selected>20</option>
+        <option value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">All</option>
+    </select>
+
+    <table id="heroTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable('images.xs')">Icon</th>
+                <th onclick="sortTable('name')">Name</th>
+                <th onclick="sortTable('biography.fullName')">Full Name</th>
+                <th onclick="sortTable('powerstats.intelligence')">Power Stats</th>
+                <th onclick="sortTable('appearance.race')">Race</th>
+                <th onclick="sortTable('appearance.gender')">Gender</th>
+                <th onclick="sortTable('appearance.height[1]')">Height (cm)</th>
+                <th onclick="sortTable('appearance.weight[1]')">Weight (kg)</th>
+                <th onclick="sortTable('biography.placeOfBirth')">Place of Birth</th>
+                <th onclick="sortTable('biography.alignment')">Alignment</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script src="sortable.js"></script>
+</body>
 </html>
+
+<!-- 
+<td>
+            ${hero.powerstats.intelligence ?? "N/A"} /
+            ${hero.powerstats.strength ?? "N/A"} /
+            ${hero.powerstats.speed ?? "N/A"} /
+            ${hero.powerstats.durability ?? "N/A"} / 
+            ${hero.powerstats.power ?? "N/A"} / 
+            ${hero.powerstats.combat ?? "N/A"}
+</td>
+-->
