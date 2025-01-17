@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Superhero Sortable Table</title>
+    <title>Superhero Database with Pagination</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Superhero Database</h1>
     
+    <!-- Barre de recherche -->
     <input type="text" id="searchInput" placeholder="Search by name...">
 
+    <!-- Sélection de la taille de page -->
     <label for="pageSize">Page Size:</label>
     <select id="pageSize">
         <option value="20" selected>20</option>
@@ -20,6 +22,7 @@
         <option value="all">All</option>
     </select>
 
+    <!-- Tableau des héros -->
     <table id="heroTable">
         <thead>
             <tr>
@@ -38,17 +41,15 @@
         <tbody id="tableBody"></tbody>
     </table>
 
+    <!-- Contrôles de pagination -->
+    <div class="pagination-controls">
+        <button onclick="changePage('first')">First</button>
+        <button onclick="changePage('prev')">Previous</button>
+        <span id="pageIndicator">Page 1</span>
+        <button onclick="changePage('next')">Next</button>
+        <button onclick="changePage('last')">Last</button>
+    </div>
+
     <script src="sortable.js"></script>
 </body>
 </html>
-
-<!-- 
-<td>
-            ${hero.powerstats.intelligence ?? "N/A"} /
-            ${hero.powerstats.strength ?? "N/A"} /
-            ${hero.powerstats.speed ?? "N/A"} /
-            ${hero.powerstats.durability ?? "N/A"} / 
-            ${hero.powerstats.power ?? "N/A"} / 
-            ${hero.powerstats.combat ?? "N/A"}
-</td>
--->
